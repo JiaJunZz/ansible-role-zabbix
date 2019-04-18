@@ -1,0 +1,17 @@
+---
+- name: Include Os-specific variable
+  include_vars: "{{ansible_os_family}}{{ansible_distribution_major_version}}.yml"
+
+- name: Install zabbix rpm repo
+  yum: name={{ rpm_url }} state=present
+
+- name: Clean yum cache
+  command: /usr/bin/yum clean all
+
+- name: Install zabbix agent
+  yum: name=zabbix-agent state=present
+
+- name: Create zabbix agent configuration file
+  template: src=zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf
+  notify:
+  - restart zabbix agent
