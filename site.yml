@@ -1,14 +1,5 @@
 ---
 
-# configure ntp  
-- hosts: servers
-  remote_user: root
-
-  roles:
-    - ntp
-  tags:
-    - ntp
-
 # configure zabbix agent
 - hosts: zabbix
   remote_user: root
